@@ -58,8 +58,9 @@ const initializePassport = require('./passport-config')
 initializePassport(passport)
 const Nexmo = require('nexmo')
 
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/gestion_des_dechets');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://ayoub:S53oJfV3i38n2Jki@cluster0.i52k8.mongodb.net/database?retryWrites=true&w=majority');
+//mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://ayoub:S53oJfV3i38n2Jki@cluster0.i52k8.mongodb.net/database?retryWrites=true&w=majority');
 /*mongoose.connect(uri, {  useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true } )
   .then(() => {
     console.log("MongoDB Connected…")
@@ -101,14 +102,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
      next(); 
     } 
    }); */
-/*app.use(flash())
+app.use(flash())
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave:false,
     saveUninitialized: false
 }))
 app.use(passport.initialize())
-app.use(passport.session())*/
+app.use(passport.session())
 
 app.get('/home',  async (req,res) => {
     res.render('home')
