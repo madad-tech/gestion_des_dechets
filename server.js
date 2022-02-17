@@ -57,16 +57,9 @@ const flash = require('express-flash')
 const initializePassport = require('./passport-config')
 initializePassport(passport)
 const Nexmo = require('nexmo')
-//const MongoClient = require('mongodb').MongoClient;
-//const uri = "mongodb+srv://user:xSVvf4VCmD0Hw09X@cluster0.so77n.mongodb.net/dawa2?retryWrites=true&w=majority";
-//const client = new MongoClient(uri, { useNewUrlParser: true });
-/*client.connect(err => {
-    const collection = client.db("test").collection("devices");
-    // perform actions on the collection object
-    client.close();
-  });*/
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/your-app-name');
+
+mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://ayoub:S53oJfV3i38n2Jki@cluster0.i52k8.mongodb.net/database?retryWrites=true&w=majority');
 /*mongoose.connect(uri, {  useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true } )
   .then(() => {
     console.log("MongoDB Connected…")
