@@ -1,0 +1,26 @@
+<div class="form-group">  
+    <label for="title">Type du repas</label>
+    <textarea required name="typeRepas" id="typeRepas" class="form-control"><%= cuisArticleRetour.TypeRepas %></textarea>
+</div>
+<div class="form-group">  
+    <label for="title">Poids</label>
+    <textarea name="poids" id="poids" class="form-control"><%= cuisArticleRetour.Poids %></textarea>
+</div>
+<div class="form-group">
+    <label for="title">Composition du plateau</label>
+    <textarea required name="compPlat" id="compPlat" class="form-control"><%= cuisArticleRetour.CompositionPl %></textarea>
+</div>
+<div class="form-group">
+    <label for="title">Type de tri prévu</label>
+    <textarea required name="typeTri" id="typeTri" class="form-control"><%= cuisArticleRetour.TypeTri %></textarea>
+</div>
+<div class="form-group">
+    <label for="title">Type de recyclage prévu</label>
+    <textarea required name="typeRec" id="typeRec" class="form-control"><%= cuisArticleRetour.TypeRecyclage %></textarea>
+</div>
+
+
+
+
+<button type="submit" class="btn btn-primary">Enregistrer</button>
+<a href='/listeRt/tout' class="btn btn-secondary">annuler</a>
