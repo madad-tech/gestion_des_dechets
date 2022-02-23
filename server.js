@@ -11,29 +11,21 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const methodOverride = require('method-override')
-const articleRouter = require('./routes/articles.js')
-const articleRouterStock = require('./routes/cuisArticles.js')
-const articleRouter2 = require('./routes/articlesLT.js')
-const articleRouter3 = require('./routes/articlesCM.js')
-const articleRouter4 = require('./routes/articlesFourn.js')
-const articleRouterFr = require('./routes/fournMeals.js')
-const articleRouter5 = require('./routes/articlesRet.js')
-const articleRouterRt = require('./routes/cuisArticlesRetour.js')
-const prescriptionRouter = require('./routes/prescriptions.js')
-const patientRouter = require('./routes/patients.js')
-const cuisPatientRouter = require('./routes/cuisPatients.js')
+
+const conteneurRouter = require('./routes/conteneurs.js')
+const cuisConteneurRouter = require('./routes/cuisConteneurs.js')
 const userRouter = require('./routes/users.js')
 const routes = require('./routes/route.js');
 
-const articleRouterCmdRepas = require('./routes/commandesRepasCuisine.js')
 
+const Modif = require('./models/modif.js')
 const Article = require('./models/article.js')
 const CuisArticle = require('./models/cuisArticle.js')
 const User = require('./models/user.js')
 const User3 = require('./models/user3.js')
 const Prescription = require('./models/prescription.js')
-const Patient = require('./models/patient.js')
-const CuisPatient = require('./models/cuisPatient.js')
+const Conteneur = require('./models/conteneur.js')
+const CuisConteneur = require('./models/cuisConteneur.js')
 const router = express.Router()
 const ArticleLT = require('./models/articleLT.js')
 const ArticleCM = require('./models/articleCM.js')
@@ -72,20 +64,12 @@ app.set('view engine', 'ejs')
 
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: false }))
-app.use('/articles', articleRouter)
-app.use('/cuisArticles', articleRouterStock)
-app.use('/articlesLT', articleRouter2)
-app.use('/articlesCM', articleRouter3)
-app.use('/articlesFourn', articleRouter4)
-app.use('/fournMeals',articleRouterFr)
-app.use('/articlesRet', articleRouter5)
-app.use('/cuisArticlesRetour', articleRouterRt)
-app.use('/prescriptions', prescriptionRouter)
-app.use('/patients', patientRouter)
-app.use('/cuisPatients', cuisPatientRouter)
+
+app.use('/conteneurs', conteneurRouter)
+app.use('/cuisConteneurs', cuisConteneurRouter)
 app.use('/users', userRouter)
+
 app.use('/', routes)
-app.use('/commandesRepasCuisine', articleRouterCmdRepas)
 
 app.use(bodyParser.urlencoded({ extended: true }));
 /*app.use(async (req, res, next) => {
@@ -304,12 +288,12 @@ app.post('/liste2',async (req,res) => {
 app.get('/liste3/:p', f.checkAuthenticated, f.checkNonPharmacienP, async (req,res) => {
     try{
     if ( req.params.p == "tout" ){
-        const patients = await Patient.find().sort({createdAt: 'desc' })
-        res.render('patients/index', { patients: patients })
+        const conteneurs = await Conteneur.find().sort({createdAt: 'desc' })
+        res.render('conteneurs/index', { conteneurs: conteneurs })
     }
     else{
-        const patients = await Patient.find({ nomP: { $regex: req.params.p }  }).sort({createdAt: 'desc' })
-        res.render('patients/index', { patients: patients })
+        const conteneurs = await Conteneur.find({ nomP: { $regex: req.params.p }  }).sort({createdAt: 'desc' })
+        res.render('conteneurs/index', { conteneurs: conteneurs })
     }
     }catch(e){
         console.log('chargement impossible')
@@ -328,15 +312,15 @@ app.post('/liste3', async (req,res) => {
     }
 }) 
 
-app.get('/listePt/:p', f.checkAuthenticated, f.checkNonPharmacienP, async (req,res) => {
+app.get('/listeCt/:p', f.checkAuthenticated, f.checkNonPharmacienP, async (req,res) => {
     try{
     if ( req.params.p == "tout" ){
-        const cuisPatients = await CuisPatient.find().sort({createdAt: 'desc' })
-        res.render('cuisPatients/index', { cuisPatients: cuisPatients })
+        const cuisConteneurs = await CuisConteneur.find().sort({createdAt: 'desc' })
+        res.render('cuisConteneurs/index', { cuisConteneurs: cuisConteneurs })
     }
     else{
-        const cuisPatients = await CuisPatient.find({ nomP: { $regex: req.params.p }  }).sort({createdAt: 'desc' })
-        res.render('cuisPatients/index', { cuisPatients: cuisPatients })
+        const cuisConteneurs = await CuisConteneur.find({ nomP: { $regex: req.params.p }  }).sort({createdAt: 'desc' })
+        res.render('cuisConteneurs/index', { cuisConteneurs: cuisConteneurs })
     }
     }catch(e){
         console.log('chargement impossible')
@@ -355,122 +339,6 @@ app.post('/listePt', async (req,res) => {
     }
 }) 
 
-app.get('/liste/:p', f.checkAuthenticated,async (req,res) => {
-    try{
-
-        if(req.params.p == "tout"){
-            
-            
-            const articles = await Article.find().sort({createdAt: 'desc' })
-           
-             res.render('articles/index', { articles: articles })
-        }if(req.params.p == "danger"){
-
-            const articles = await Article.find().sort({createdAt: 'desc' })
-            
-            var i = 0
-            var tab = []
-            while( i < articles.length){
-            
-            var todayDate = new Date(); //Today Date
-            date = todayDate.getFullYear()+ '-' + (todayDate.getMonth() + 1) + '-' + todayDate.getDate()
-            var x = new Date(date);
-            var y = new Date(articles[i].datePeremption);
-            //console.log(x)
-            // console.log(y)
-            
-            if (x > y) {
-                 // Or your date here
-                 
-                 tab = [...tab, articles[i]];
-                // console.log('plus grand')
-            }else{
-                // console.log('plus petit')
-            }
-            i ++
-        }
-        
-           
-            res.render('articles/index', { articles: tab})
-        }else{
-            const articles2 = await Article.find({categorie: req.params.p}).sort({createdAt: 'desc' })
-            res.render('articles/index', { articles: articles2 }) 
-        }
-    }catch(e){
-        console.log('chargement impossible')
-    }
-}) 
-
-
-
-
-app.post('/liste', async (req,res) => {
-    try{
-    res.redirect('/liste/' + req.body.request) 
-    }catch(e){
-        console.log('chargement impossible')
-    }
-}) 
-
-
-app.get('/listeStock/:p', f.checkAuthenticated,async (req,res) => {
-    try{
-
-        if(req.params.p == "tout"){
-            
-            
-            const cuisArticles = await CuisArticle.find().sort({createdAt: 'desc' })
-           
-             res.render('cuisArticles/index', { cuisArticles: cuisArticles })
-        }else{
-            const cuisArticles2 = await CuisArticle.find({categorie: req.params.p}).sort({createdAt: 'desc' })
-            res.render('cuisArticles/index', { cuisArticles: cuisArticles2 }) 
-        }
-    }catch(e){
-        console.log('chargement impossible')
-    }
-}) 
-
-
-
-
-app.post('/listeStock', async (req,res) => {
-    try{
-    res.redirect('/listeStock/' + req.body.request) 
-    }catch(e){
-        console.log('chargement impossible')
-    }
-}) 
-
-
-
-app.get('/liste4/:p', f.checkAuthenticated, f.checkNonPharmacienP, async (req,res) => {
-    try{
-    if ( req.params.p == "tout" ){
-        const articlesLT = await ArticleLT.find().sort({createdAt: 'desc' })
-        res.render('articlesLT/index', { articlesLT: articlesLT })
-    }
-    else{
-        const articlesLT  = await ArticleLT.find({ nom: { $regex: req.params.p }  }).sort({createdAt: 'desc' })
-        res.render('articlesLT/index', { articlesLT : articlesLT  })
-    }
-    }catch(e){
-        console.log('chargement impossible')
-    }
-})
-
-app.post('/liste4', async (req,res) => {
-    try{
-        if (req.body.request2 == "tout"){
-            res.redirect('/liste4/' + req.body.request2) 
-        }else{
-            res.redirect('/liste4/' + req.body.request)  
-        }
-    }catch(e){
-        console.log('chargement impossible')
-    }
-}) 
-
 /*app.get('/liste5', f.checkAuthenticated,f.checkNonMedecin,f.checkNonPharmacien, async (req,res) => {
     try{
     const articlesCM = await ArticleCM.find().sort({createdAt: 'desc' })
@@ -480,185 +348,8 @@ app.post('/liste4', async (req,res) => {
     }
 }) 
 */
-app.get('/liste5/:p', f.checkAuthenticated, f.checkNonMedecin,f.checkNonPharmacien, async (req,res) => {
-    try{
-    if ( req.params.p == "tout" ){
-        const articlesCM = await ArticleCM.find().sort({createdAt: 'desc' })
-        res.render('articlesCM/index', { articlesCM: articlesCM })
-    }
-    else{
-        const articlesCM  = await ArticleCM.find({ Ncom: { $regex: req.params.p }  }).sort({createdAt: 'desc' })
-        res.render('articlesCM/index', { articlesCM : articlesCM  })
-    }
-    }catch(e){
-        console.log('chargement impossible')
-    }
-})
-
-app.post('/liste5', async (req,res) => {
-    try{
-        if (req.body.request2 == "tout"){
-            res.redirect('/liste5/' + req.body.request2) 
-        }else{
-            res.redirect('/liste5/' + req.body.request)  
-        }
-    }catch(e){
-        console.log('chargement impossible')
-    }
-}) 
-
-app.get('/listeCmdRepas/:p', f.checkAuthenticated, f.checkNonMedecin,f.checkNonPharmacien, async (req,res) => {
-    try{
-    if ( req.params.p == "tout" ){
-        const commandesRepasCuisine = await CommandeRepasCuisine.find().sort({createdAt: 'desc' })
-        res.render('commandesRepasCuisine/index', { commandesRepasCuisine: commandesRepasCuisine })
-    }
-    else{
-        const commandesRepasCuisine  = await CommandeRepasCuisine.find({ service: { $regex: req.params.p }  }).sort({createdAt: 'desc' })
-        res.render('commandesRepasCuisine/index', { commandesRepasCuisine : commandesRepasCuisine  })
-    }
-    }catch(e){
-        console.log('chargement impossible')
-    }
-})
-
-app.post('/listeCmdRepas', async (req,res) => {
-    try{
-        if (req.body.request2 == "tout"){
-            res.redirect('/listeCmdRepas/' + req.body.request2) 
-        }else{
-            res.redirect('/listeCmdRepas/' + req.body.request)  
-        }
-    }catch(e){
-        console.log('chargement impossible')
-    }
-}) 
-
- 
-
-
-
-app.get('/liste6/:p', f.checkAuthenticated,f.checkNonMedecin,f.checkNonPharmacien, async (req,res) => {
-    try{
-    if ( req.params.p == "tout" ){
-    const articlesFourn = await ArticleFourn.find().sort({createdAt: 'desc' })
-    res.render('articlesFourn/index', { articlesFourn: articlesFourn })
-    }
-    else{
-        const articlesFourn = await ArticleFourn.find({ nomF: { $regex: req.params.p }  }).sort({createdAt: 'desc' })
-        res.render('articlesFourn/index', { articlesFourn: articlesFourn })
-    }
-    }catch(e){
-        console.log('chargement impossible')
-    }
-})
-
-app.post('/liste6', async (req,res) => {
-    try{
-        if (req.body.request2 == "tout"){
-            res.redirect('/liste6/' + req.body.request2) 
-        }else{
-            res.redirect('/liste6/' + req.body.request)  
-        }
-    }catch(e){
-        console.log('chargement impossible')
-    }
-}) 
-
-app.get('/listeFr/:p', f.checkAuthenticated,f.checkNonMedecin,f.checkNonPharmacien, async (req,res) => {
-    try{
-    if ( req.params.p == "tout" ){
-    const fournMeals = await FournMeal.find().sort({createdAt: 'desc' })
-    res.render('fournMeals/index', { fournMeals: fournMeals })
-    }
-    else{
-        const fournMeals = await FournMeal.find({ nomF: { $regex: req.params.p }  }).sort({createdAt: 'desc' })
-        res.render('fournMeals/index', { fournMeals:fournMeals })
-    }
-    }catch(e){
-        console.log('chargement impossible')
-    }
-})
-
-app.post('/listeFr', async (req,res) => {
-    try{
-        if (req.body.request2 == "tout"){
-            res.redirect('/listeFr/' + req.body.request2) 
-        }else{
-            res.redirect('/listeFr/' + req.body.request)  
-        }
-    }catch(e){
-        console.log('chargement impossible')
-    }
-}) 
-
-/*app.get('/liste7', f.checkAuthenticated,f.checkNonMedecin,f.checkNonPharmacien,async (req,res) => {
-    try{
-    const articlesRet = await ArticleRet.find().sort({createdAt: 'desc' })
-    res.render('articlesRet/index', { articlesRet: articlesRet })
-    }catch(e){
-        console.log('chargement impossible')
-    }
-}) */
-
-app.get('/liste7/:p',  f.checkAuthenticated,f.checkNonMedecin,f.checkNonPharmacien, async (req,res) => {
-    try{
-    if ( req.params.p == "tout" ){
-        const articlesRet = await ArticleRet.find().sort({createdAt: 'desc' })
-        res.render('articlesRet/index', { articlesRet: articlesRet })
-    }
-    else{
-        const articlesRet  = await ArticleRet.find({ unitéSoin: { $regex: req.params.p }  }).sort({createdAt: 'desc' })
-        res.render('articlesRet/index', { articlesRet : articlesRet  })
-    }
-    }catch(e){
-        console.log('chargement impossible')
-    }
-})
-
-app.post('/liste7', async (req,res) => {
-    try{
-        if (req.body.request2 == "tout"){
-            res.redirect('/liste7/' + req.body.request2) 
-        }else{
-            res.redirect('/liste7/' + req.body.request)  
-        }
-    }catch(e){
-        console.log('chargement impossible')
-    }
-}) 
-
-
-app.get('/listeRt/:p',  f.checkAuthenticated,f.checkNonMedecin,f.checkNonPharmacien, async (req,res) => {
-    try{
-    if ( req.params.p == "tout" ){
-        const cuisArticlesRetour = await CuisArticleRetour.find().sort({createdAt: 'desc' })
-        res.render('cuisArticlesRetour/index', { cuisArticlesRetour: cuisArticlesRetour })
-    }
-    else{
-        const cuisArticlesRetour  = await CuisArticleRetour.find({ TypeRepas: { $regex: req.params.p }  }).sort({createdAt: 'desc' })
-        res.render('cuisArticlesRetour/index', { cuisArticlesRetour : cuisArticlesRetour  })
-    }
-    }catch(e){
-        console.log('chargement impossible')
-    }
-})
-
-app.post('/listeRt', async (req,res) => {
-    try{
-        if (req.body.request2 == "tout"){
-            res.redirect('/listeRt/' + req.body.request2) 
-        }else{
-            res.redirect('/listeRt/' + req.body.request)  
-        }
-    }catch(e){
-        console.log('chargement impossible')
-    }
-}) 
-
-
 //, f.checkAuthenticated,f.checkNonPharmacienP, f.checkNonMedecin, f.checkNonPharmacien
-app.get('/listeusers', f.checkAuthenticated, f.checkNonMedecin,f.checkNonPharmacien, f.checkNonPharmacienP, async (req,res) => {
+app.get('/listeusers', f.checkAuthenticated,f.checkNonEmploye, f.checkNonMedecin,f.checkNonPharmacien, f.checkNonPharmacienP, async (req,res) => {
     try{
     console.log(req.isAuthenticated())
     const users = await User.find()

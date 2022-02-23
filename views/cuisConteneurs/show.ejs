@@ -9,6 +9,7 @@
     <title>Cuisine hospitalière</title>
 </head>
 <body>
+<%= modif %>
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
       <a class="navbar-brand" href="#">CuisTec</a>
@@ -35,30 +36,30 @@
         </ul>
       </div>
     </nav>
-      <h1 class="mb-4">Patient: <%= cuisPatient.nomP %></h1>
+      <h1 class="mb-4">Conteneur: <%= cuisConteneur.nomP %></h1>
       <div class="text mb-2">
-      Prénom: <%= cuisPatient.prenomP %>
+      Prénom: <%= cuisConteneur.prenomP %>
       </div>
       <div class="mb-2 text-success">
-        CIN du patient: <%= cuisPatient.CIN %>
+        CIN du patient: <%= cuisConteneur.CIN %>
       </div>
       <div class="text mb-2">
-      age: <%= cuisPatient.ageP %> et sexe: <%= cuisPatient.sexeP %>
+      age: <%= cuisConteneur.ageP %> et sexe: <%= cuisConteneur.sexeP %>
       </div>
       
       <div class="text mb-2">
-        Allergies par rapport à la nourriture: <%= cuisPatient.Antecedents_Allergies %>
+        Allergies par rapport à la nourriture: <%= cuisConteneur.Antecedents_Allergies %>
       </div>
       <div class="text mb-2">
-        Service d'hospitalisation: <%= cuisPatient.service %>
+        Service d'hospitalisation: <%= cuisConteneur.service %>
       </div>
       <div class="text-muted mb-2">
-      Date de création du dossier du patient: <%= cuisPatient.createdAt.toLocaleDateString() %>
+      Date de création du dossier du patient: <%= cuisConteneur.createdAt.toLocaleDateString() %>
       </div>
-      <a href="/listePt/tout" class="btn btn-secondary">
+      <a href="/listeCt/tout" class="btn btn-secondary">
         Tous les patients
       </a>
-      <a href="/cuisPatients/edit/<%= cuisPatient.id %>" class="btn btn-info">
+      <a href="/cuisConteneurs/edit/<%= cuisConteneur.id %>" class="btn btn-info">
         modifier
       </a>
   </div>

@@ -17,10 +17,18 @@ exports.checkNotAuthenticated = async (req, res, next) => {
     next()
 } 
 
+exports.checkNonEmploye = async (req, res, next) => {
+    const users3 = await User3.find()
+    if (users3[users3.length-1].role != "employe"){
+        return next()
+    }
+
+    res.redirect('/')
+}
 
 exports.checkNonMedecin = async (req, res, next) => {
     const users3 = await User3.find()
-    if (users3[0].role != "medecin"){
+    if (users3[users3.length-1].role != "medecin"){
         return next()
     }
 
