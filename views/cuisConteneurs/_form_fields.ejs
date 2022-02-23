@@ -1,41 +1,38 @@
-<div class="form-group">
-    <label for="title">Nom</label>
-    <textarea required name="nomP" id="nomP" class="form-control"><%= cuisConteneur.nomP %></textarea>
-</div>
-<div class="form-group">
-    <label for="title">Prénom</label>
-    <textarea required name="prenomP" id="prenomP" class="form-control"><%= cuisConteneur.prenomP %></textarea>
-</div>
-<div class="form-group">
-    <label for="title">Age</label>
-    <textarea required name="ageP" id="ageP" class="form-control"><%= cuisConteneur.ageP %></textarea>
-</div>
-<div class="form-group">
-    <label for="title">Sexe</label>
-    <textarea required name="sexeP" id="sexeP" class="form-control"><%= cuisConteneur.sexeP %></textarea>
-</div>
-<div class="form-group">
-    <label for="title">CIN</label>
-    <textarea required name="CIN" id="CIN" class="form-control"><%= cuisConteneur.CIN %></textarea>
-</div>
-<div class="form-group">
-    <label for="title">Allergies par rapport à la nourriture</label>
-    <textarea name="Antecedents_Allergies" id="Antecedents_Allergies" class="form-control"><%= cuisConteneur.Antecedents_Allergies %></textarea>
-</div>
-<div class="form-group">
-    <label for="title">Service d'hospitalisation</label>
-    <select id="service" name="service" class="form-control">
-        <option selected><%= cuisConteneur.service %></option>
-        <option value="ORL">ORL</option>
-        <option value="Cardiologie">Cardiologie</option>
-        <option value="Endocrinologie">Endocrinologie</option>
-        <option value="Gastroentérologie">Gastroentérologie</option>
-        <option value="Neurologie">Neurologie</option>
-        <option value="Urgences">Urgences</option>
-        <option value="Réanimation">Réanimation</option>
+
+
+    <h3>Nouveau conteneur</h3>
+    <div class="form-holder">
         
-      </select>
-    <!-- <textarea name="service" id="service" class="form-control"><%= cuisConteneur.service %></textarea> -->
-</div>
-<button type="submit" class="btn btn-primary">Enregistrer</button>
-<a href='/listePt/tout' class="btn btn-secondary">annuler</a>
+        <input required value = "<%= cuisConteneur.typeC %>" type="text" class="form-control" placeholder="type de conteneur">
+    </div>
+    <div class="form-holder">
+        
+        <input required value = "<%= cuisConteneur.nombreC %>" type="text" class="form-control" placeholder="nombre de conteneur">
+    </div>
+    <div class="form-holder">
+        
+        <input required value = "<%= cuisConteneur.dateC %>" type="date" class="form-control" placeholder="date de pesage">
+    </div>
+    <div class="form-holder">
+        
+        <input required value = "<%= cuisConteneur.montantC %>" type="text" class="form-control" placeholder="montant facturé">
+    </div>
+    <div class="form-holder">
+        
+        <input required value = "<%= cuisConteneur.cautionC %>" type="text" class="form-control" placeholder="caution">
+    </div>
+    <div class="form-holder">
+        
+        <input required value = "<%= cuisConteneur.poidsC %>" type="text" class="form-control" placeholder="poids de déchets">
+    </div>
+    <div class="form-holder">
+        
+        <input required value = "<%= cuisConteneur.commentaireC %>" type="text" class="form-control" placeholder="commentaire">
+    </div>
+    
+    <div>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <button onclick="window.location.href='listePt/tout'" class="btn btn-warning"> annuler</button>
+    </div>
+    
+

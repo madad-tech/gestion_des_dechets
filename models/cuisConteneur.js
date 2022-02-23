@@ -1,40 +1,35 @@
 const mongoose = require('mongoose')
 
 const cuisConteneurSchema = new mongoose.Schema({
-    nomP: {
-        type: String,
-        required: true
-    },
-    prenomP: {
-        type: String,
-        required: true
-    },
-    sexeP: {
-        type: String,
-        required: true
-    },
-    ageP: {
+    typeC: {
         type: Number,
         required: true
     },
-    CIN: {
-        type: String,
+    nombreC: {
+        type: Number,
         required: true
     },
-    Antecedents_Allergies: {
-        type: String
-    },
-    service: {
-        type: String,
-        enum: ['ORL', 'Cardiologie', 'Endocrinologie',
-          'Gastroentérologie', 'Neurologie',
-          'Urgences', 'Réanimation'],
-        required: [true, 'service est obligatoire'],
-      },
-    createdAt: {
+    dateC: {
         type: Date,
         default: Date.now
-    }
+    },
+    montantC: {
+        type: Number,
+        required: true
+    },
+    coutant: {
+        type: Number,
+        required: true
+    },
+    poids: {
+        type: Number,
+        required: true
+    },
+    commentaire: {
+        type: String,
+        required: true
+     }
+   
 })
 
 

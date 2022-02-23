@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+
 const CuisConteneur = require('./../models/cuisConteneur.js')
 const Modif = require('./../models/modif.js')
 const User3 = require('./../models/user3.js')
@@ -7,18 +8,22 @@ const f = require('./../UserRoles')
 
 router.get('/new', (req,res) => {
     res.render('cuisConteneurs/new', { cuisConteneur: new CuisConteneur() })
+
 })
 
 router.get('/edit/:id', async (req,res) => {
     try{
+
     const cuisConteneur = await CuisConteneur.findById(req.params.id)
     res.render('cuisConteneurs/edit', { cuisConteneur: cuisConteneur })
     }catch(e){
      res.redirect('/listeCt/tout')   
+
     }
 })
 
 router.get('/:id', async (req,res) => {
+
 	 const users3 = await User3.find()
     
     try{
@@ -41,18 +46,20 @@ router.get('/:id',async (req,res) => {
     res.render('cuisConteneurs/show', { cuisConteneur: cuisConteneur})
     }catch(e){
         res.redirect('/listeCt/tout') //if (article == null) 
+
     }
 })
 
 router.post('/', async (req,res) => {     
+
     let cuisConteneur = new CuisConteneur({
-        nomP: req.body.nomP,
-        prenomP: req.body.prenomP,
-        ageP: req.body.ageP,
-        sexeP: req.body.sexeP,
-        CIN : req.body.CIN,
-        Antecedents_Allergies : req.body.Antecedents_Allergies,
-        service : req.body.service
+        typeC: req.body.typeC,
+        nombreC: req.body.nombreC,
+        dateC: req.body.dateC,
+        montantC: req.body.montantC,
+        coutant : req.body.coutant,
+        poids : req.body.poids,
+        commentaire : req.body.commentaire
     })
     try{
     cuisConteneur = await cuisConteneur.save()
@@ -72,6 +79,7 @@ router.delete('/:id', async (req,res) => {
 })
 
 router.put('/:id', async (req,res) => {
+
 	const users3 = await User3.find()
 
 	
