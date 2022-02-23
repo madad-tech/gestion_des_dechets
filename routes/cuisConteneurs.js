@@ -26,13 +26,13 @@ router.get('/:id', async (req,res) => {
 
 router.post('/', async (req,res) => {     
     let cuisPatient = new CuisPatient({
-        nomP: req.body.nomP,
-        prenomP: req.body.prenomP,
-        ageP: req.body.ageP,
-        sexeP: req.body.sexeP,
-        CIN : req.body.CIN,
-        Antecedents_Allergies : req.body.Antecedents_Allergies,
-        service : req.body.service
+        typeC: req.body.typeC,
+        nombreC: req.body.nombreC,
+        dateC: req.body.dateC,
+        montantC: req.body.montantC,
+        coutant : req.body.coutant,
+        poids : req.body.poids,
+        commentaire : req.body.commentaire
     })
     try{
     cuisPatient = await cuisPatient.save()
@@ -53,13 +53,13 @@ router.delete('/:id', async (req,res) => {
 
 router.put('/:id', async (req,res) => {
     let cuisPatient = await CuisPatient.findById(req.params.id)
-        cuisPatient.nomP= req.body.nomP
-        cuisPatient.prenomP= req.body.prenomP
-        cuisPatient.ageP= req.body.ageP
-        cuisPatient.sexeP= req.body.sexeP
-        cuisPatient.CIN = req.body.CIN
-        cuisPatient.Antecedents_Allergies = req.body.Antecedents_Allergies
-        cuisPatient.service = req.body.service
+        cuisPatient.typeC= req.body.typeC
+        cuisPatient.nombreC= req.body.nombreC
+        cuisPatient.dateC= req.body.dateC
+        cuisPatient.montantC= req.body.montantC
+        cuisPatient.coutant = req.body.coutant
+        cuisPatient.poids = req.body.poids
+        cuisPatient.commentaire = req.body.commentaire
     try{
     cuisPatient = await cuisPatient.save()
     res.redirect(`/cuisPatients/${cuisPatient.id}`)
