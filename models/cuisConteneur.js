@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 
-
-const cuisPatientSchema = new mongoose.Schema({
+const cuisConteneurSchema = new mongoose.Schema({
     typeC: {
         type: Number,
         required: true
@@ -11,8 +10,8 @@ const cuisPatientSchema = new mongoose.Schema({
         required: true
     },
     dateC: {
-        type: Number,
-        required: true
+        type: Date,
+        default: Date.now
     },
     montantC: {
         type: Number,
@@ -29,8 +28,9 @@ const cuisPatientSchema = new mongoose.Schema({
     commentaire: {
         type: String,
         required: true
-      },
+     }
+   
 })
 
 
-module.exports = mongoose.model('cuisPatient', cuisPatientSchema)
+module.exports = mongoose.model('cuisConteneur', cuisConteneurSchema)
