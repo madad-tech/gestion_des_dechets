@@ -1,38 +1,38 @@
 
 
-    <h3>Nouveau conteneur</h3>
+    
     <div class="form-holder">
         
-        <input required value = "<%= cuisConteneur.typeC %>" type="text" class="form-control" placeholder="type de conteneur">
+        <input required id="typeC" name="typeC" value = "<%= cuisConteneur.typeC %>" type="text" class="form-control" placeholder="type de conteneur">
     </div>
     <div class="form-holder">
         
-        <input required value = "<%= cuisConteneur.nombreC %>" type="text" class="form-control" placeholder="nombre de conteneur">
+        <input required id="nombreC" name="nombreC" value = "<%= cuisConteneur.nombreC %>" type="text" class="form-control" placeholder="nombre de conteneur">
     </div>
     <div class="form-holder">
         
-        <input required value = "<%= cuisConteneur.dateC %>" type="date" class="form-control" placeholder="date de pesage">
+        <input required id="dateC" name="dateC" value = "<%= cuisConteneur.dateC %>" type="date" class="form-control" placeholder="01/05/2020">
     </div>
     <div class="form-holder">
         
-        <input required value = "<%= cuisConteneur.montantC %>" type="text" class="form-control" placeholder="montant facturé">
+        <input required id="montantC" name="montantC" value = "<%= cuisConteneur.montantC %>" type="text" class="form-control" placeholder="montant facturé">
     </div>
     <div class="form-holder">
         
-        <input required value = "<%= cuisConteneur.cautionC %>" type="text" class="form-control" placeholder="caution">
+        <input required id="cautionC" name="cautionC" value = "<%= cuisConteneur.cautionC %>" type="text" class="form-control" placeholder="caution">
     </div>
     <div class="form-holder">
         
-        <input required value = "<%= cuisConteneur.poidsC %>" type="text" class="form-control" placeholder="poids de déchets">
+        <input required id="poidsC" name="poidsC" value = "<%= cuisConteneur.poidsC %>" type="text" class="form-control" placeholder="poids de déchets">
     </div>
     <div class="form-holder">
         
-        <input required value = "<%= cuisConteneur.commentaireC %>" type="text" class="form-control" placeholder="commentaire">
+        <input required id="commentaireC" name="commentaireC" value = "<%= cuisConteneur.commentaireC %>" type="text" class="form-control" placeholder="commentaire">
     </div>
     
     <div>
         <button type="submit" class="btn btn-primary">Enregistrer</button>
-        <button onclick="window.location.href='listePt/tout'" class="btn btn-warning"> annuler</button>
+        <button onclick="history.back()" class="btn btn-warning"> annuler</button>
     </div>
     
 

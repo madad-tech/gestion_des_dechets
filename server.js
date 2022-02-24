@@ -95,6 +95,8 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
+
+
 app.get('/home',  async (req,res) => {
     res.render('home')
 })
@@ -162,21 +164,7 @@ app.get('/logout',  async (req,res) => {
     res.render('articles/index2')
 })
 
-app.get('/Page', f.checkAuthenticated, async (req,res) => {
-    const users3 = await User3.find()
-    if(users3[0].role == "medecin"){
-        role = "Médecin"
-    }if(users3[0].role == "pharmacien"){
-        role = "Pharmacien"
-    }if(users3[0].role == "pharmacienP"){
-        role = "Pharmacien préparateur"
-    }if(users3[0].role == "admin"){
-        role = "Administrateur"
-    }
-    res.render('Page', {nom: users3[0].name,
-                        role: role
-    })
-})
+
 
 app.get('/Page0', f.checkAuthenticated, async (req,res) => {
     const users3 = await User3.find()
@@ -190,6 +178,21 @@ app.get('/Page0', f.checkAuthenticated, async (req,res) => {
         role = "Administrateur"
     }
     res.render('Page0', {nom: users3[0].name,
+                        role: users3[0].role
+    })
+})
+app.get('/Page', f.checkAuthenticated, async (req,res) => {
+    const users3 = await User3.find()
+    if(users3[0].role == "medecin"){
+        role = "Médecin"
+    }if(users3[0].role == "pharmacien"){
+        role = "Pharmacien"
+    }if(users3[0].role == "pharmacienP"){
+        role = "Pharmacien préparateur"
+    }if(users3[0].role == "admin"){
+        role = "Administrateur"
+    }
+    res.render('Page', {nom: users3[0].name,
                         role: role
     })
 })
@@ -312,14 +315,14 @@ app.post('/liste3', async (req,res) => {
     }
 }) 
 
-app.get('/listeCt/:p', f.checkAuthenticated, f.checkNonPharmacienP, async (req,res) => {
+app.get('/listeCt/:p', f.checkAuthenticated,async (req,res) => {
     try{
     if ( req.params.p == "tout" ){
-        const cuisConteneurs = await CuisConteneur.find().sort({createdAt: 'desc' })
+        const cuisConteneurs = await CuisConteneur.find().sort({dateC: 'desc' })
         res.render('cuisConteneurs/index', { cuisConteneurs: cuisConteneurs })
     }
     else{
-        const cuisConteneurs = await CuisConteneur.find({ nomP: { $regex: req.params.p }  }).sort({createdAt: 'desc' })
+        const cuisConteneurs = await CuisConteneur.find({ typeC: { $regex: req.params.p }  }).sort({dateC: 'desc' })
         res.render('cuisConteneurs/index', { cuisConteneurs: cuisConteneurs })
     }
     }catch(e){
@@ -327,12 +330,12 @@ app.get('/listeCt/:p', f.checkAuthenticated, f.checkNonPharmacienP, async (req,r
     }
 })
 
-app.post('/listePt', async (req,res) => {
+app.post('/listeCt', async (req,res) => {
     try{
         if (req.body.request2 == "tout"){
-            res.redirect('/listePt/' + req.body.request2) 
+            res.redirect('/listeCt/' + req.body.request2) 
         }else{
-            res.redirect('/listePt/' + req.body.request)  
+            res.redirect('/listeCt/' + req.body.request)  
         }
     }catch(e){
         console.log('chargement impossible')
@@ -361,6 +364,9 @@ app.get('/listeusers', f.checkAuthenticated,f.checkNonEmploye, f.checkNonMedecin
 
 app.get('/', f.checkNotAuthenticated, (req,res) => {
     res.render('articles/login') })
+	
+
+
 
 // f.checkAuthenticated, f.checkNonMedecin,f.checkNonPharmacien, f.checkNonPharmacienP,
 app.get('/register', (req,res) => {

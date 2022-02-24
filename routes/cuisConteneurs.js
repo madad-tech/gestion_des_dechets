@@ -22,49 +22,41 @@ router.get('/edit/:id', async (req,res) => {
     }
 })
 
-router.get('/:id', async (req,res) => {
-
-	 const users3 = await User3.find()
-    
-    try{
-    const cuisConteneur = await CuisConteneur.findById(req.params.id)
-	const modif = await Modif.find({c_id : req.params.id})
-		if (users3[users3.length-1].role != "employe"){
-			res.render('cuisConteneurs/show', { cuisConteneur: cuisConteneur , modif : modif })
-		}else{
-			res.render('cuisConteneurs/show', { cuisConteneur: cuisConteneur , modif : ""})
-		}
-	}catch(e){
-        res.redirect('/listeCt/tout') //if (article == null) 
-    }
-})
-
 router.get('/:id',async (req,res) => {
     try{
-    const cuisConteneur = await CuisConteneur.findById(req.params.id)
-   
-    res.render('cuisConteneurs/show', { cuisConteneur: cuisConteneur})
+		const cuisConteneur = await CuisConteneur.findById(req.params.id)
+		const users3 = await User3.find()
+		if (users3[users3.length-1].role == "admin"){
+			const modif = await Modif.find({c_id : req.params.id})
+			res.render('cuisConteneurs/show_admin', { cuisConteneur: cuisConteneur, modif : modif})
+		}else{
+			res.render('cuisConteneurs/show', { cuisConteneur: cuisConteneur})
+
+		}
+		
     }catch(e){
         res.redirect('/listeCt/tout') //if (article == null) 
 
     }
 })
 
-router.post('/', async (req,res) => {     
 
+router.post('/', async (req,res) => {     
+console.log(req.body)
     let cuisConteneur = new CuisConteneur({
         typeC: req.body.typeC,
         nombreC: req.body.nombreC,
         dateC: req.body.dateC,
         montantC: req.body.montantC,
-        coutant : req.body.coutant,
-        poids : req.body.poids,
-        commentaire : req.body.commentaire
+        cautionC : req.body.cautionC,
+        poidsC : req.body.poidsC,
+        commentaireC : req.body.commentaireC
     })
     try{
     cuisConteneur = await cuisConteneur.save()
     res.redirect(`/cuisConteneurs/${cuisConteneur.id}`)
     }catch(e){
+		console.log(e)
         res.render('cuisConteneurs/new', { cuisConteneur: cuisConteneur})
     }
 })

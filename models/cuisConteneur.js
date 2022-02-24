@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const cuisConteneurSchema = new mongoose.Schema({
     typeC: {
-        type: Number,
+       type: String,
         required: true
     },
     nombreC: {
@@ -17,15 +17,15 @@ const cuisConteneurSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    coutant: {
+    cautionC: {
+        type: String,
+        required: true
+    },
+    poidsC: {
         type: Number,
         required: true
     },
-    poids: {
-        type: Number,
-        required: true
-    },
-    commentaire: {
+    commentaireC: {
         type: String,
         required: true
      }

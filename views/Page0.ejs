@@ -2226,7 +2226,9 @@ a:hover.back-to-top {
 
                 </ul>
                 <span class="nav-item">
-                    <a class="btn-outline-sm" href="login.html">LOG OUT</a>
+				<form action="/logout?_method=DELETE" method="POST">
+                    <button type="submit" class="btn-outline-sm">LOGOUT</button>
+				</form>
                 </span>
             </div>
         </div> <!-- end of container -->
@@ -2243,8 +2245,8 @@ a:hover.back-to-top {
                         <div class="text-container">
                             <h1>Application gestion des déchets</h1>
                             <p class="p-large">Hopitale de benguerir </p>
-                            <a class="btn-solid-lg page-scroll mb-1" href="cuisPatients/new">Ajouter Un conteneur</a>
-                            <a class="btn-solid-lg page-scroll " href="/listePt/tout">Consulter l'historie des modifications</a>
+                            <a class="btn-solid-lg page-scroll mb-1" href="cuisConteneurs/new">Ajouter Un conteneur</a>
+                            <a class="btn-solid-lg page-scroll " href="/listeCt/tout">Consulter l'historie des modifications</a>
                         </div> <!-- end of text-container -->
                     </div> <!-- end of col -->
                     <div class="col-lg-6 col-xl-7">
