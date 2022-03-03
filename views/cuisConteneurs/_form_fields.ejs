@@ -11,9 +11,9 @@
     </div>
     <div class="form-holder">
         
-        <input required id="dateC" name="dateC" value = "<%= cuisConteneur.dateC %>" type="date" class="form-control" placeholder="01/05/2020">
+        <input required id="dateC" name="dateC" value = "<%= new Date(cuisConteneur.dateC).getFullYear().toString()+'-'+ ("0" + (new Date(cuisConteneur.dateC).getMonth()+1).toString()).slice(-2)+'-' +("0" + new Date(cuisConteneur.dateC).getDate().toString()).slice(-2) %>" type="date" class="form-control" placeholder="jj/mm/yyyy">
     </div>
-    <div class="form-holder">
+    <div class="form-holder">   
         
         <input required id="montantC" name="montantC" value = "<%= cuisConteneur.montantC %>" type="text" class="form-control" placeholder="montant facturé">
     </div>
