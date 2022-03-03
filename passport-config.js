@@ -9,6 +9,9 @@ function initialize(passport){
      if(user == null){
          return done(null, false, { message: 'Email incorrect'})
      }
+	 if(!user.active){
+		 return done(null, false, { message: 'Compte non actif'})
+	 }
      try{
          if(await bcrypt.compare(password, user.password)){
             let user3 = new User3({
@@ -17,7 +20,6 @@ function initialize(passport){
                 role: user.role
             })
             user3 = await user3.save()
-            console.log(user3.name)
             return done(null, user)
          }else{
              return done(null, false, { message: 'Mot de passe incorrect'})

@@ -15,7 +15,7 @@ const methodOverride = require('method-override')
 const conteneurRouter = require('./routes/conteneurs.js')
 const cuisConteneurRouter = require('./routes/cuisConteneurs.js')
 const userRouter = require('./routes/users.js')
-const routes = require('./routes/route.js');
+//const routes = require('./routes/route.js');
 
 
 const Modif = require('./models/modif.js')
@@ -69,7 +69,7 @@ app.use('/conteneurs', conteneurRouter)
 app.use('/cuisConteneurs', cuisConteneurRouter)
 app.use('/users', userRouter)
 
-app.use('/', routes)
+//app.use('/', routes)
 
 app.use(bodyParser.urlencoded({ extended: true }));
 /*app.use(async (req, res, next) => {
@@ -107,16 +107,16 @@ app.get('/menu', f.checkAuthenticated,  async (req,res) => {
 
 app.get('/profile', f.checkAuthenticated,  async (req,res) => {
     const users3 = await User3.find()
-    if(users3[0].role == "medecin"){
+    if(users3[users3.length-1].role == "medecin"){
         role = "Médecin"
-    }if(users3[0].role == "pharmacien"){
+    }if(users3[users3.length-1].role == "pharmacien"){
         role = "Pharmacien"
-    }if(users3[0].role == "pharmacienP"){
+    }if(users3[users3.length-1].role == "pharmacienP"){
         role = "Pharmacien préparateur"
-    }if(users3[0].role == "admin"){
+    }if(users3[users3.length-1].role == "admin"){
         role = "Administrateur"
     }
-    res.render('profile', {nom: users3[0].name, role: role, email: users3[0].email})
+    res.render('profile', {nom: users3[users3.length-1].name, role: role, email: users3[users3.length-1].email})
 })
 
 app.get('/acceuil',  f.checkAuthenticated, async (req,res) => {
@@ -168,63 +168,71 @@ app.get('/logout',  async (req,res) => {
 
 app.get('/Page0', f.checkAuthenticated, async (req,res) => {
     const users3 = await User3.find()
-    if(users3[0].role == "medecin"){
+    if(users3[users3.length-1].role == "medecin"){
         role = "Médecin"
-    }if(users3[0].role == "pharmacien"){
+    }if(users3[users3.length-1].role == "pharmacien"){
         role = "Pharmacien"
-    }if(users3[0].role == "pharmacienP"){
+    }if(users3[users3.length-1].role == "pharmacienP"){
         role = "Pharmacien préparateur"
-    }if(users3[0].role == "admin"){
+    }if(users3[users3.length-1].role == "admin"){
         role = "Administrateur"
     }
-    res.render('Page0', {nom: users3[0].name,
-                        role: users3[0].role
-    })
+	console.log(users3[users3.length-1].role)
+	if(users3[users3.length-1].role == "admin"){
+		res.render('Page2', {nom: users3[users3.length-1].name,
+                        role: users3[users3.length-1].role
+		})
+	}else{
+		res.render('Page0', {nom: users3[users3.length-1].name,
+                        role: users3[users3.length-1].role
+		})
+	}
+    
 })
 app.get('/Page', f.checkAuthenticated, async (req,res) => {
     const users3 = await User3.find()
-    if(users3[0].role == "medecin"){
+    if(users3[users3.length-1].role == "medecin"){
         role = "Médecin"
-    }if(users3[0].role == "pharmacien"){
+    }if(users3[users3.length-1].role == "pharmacien"){
         role = "Pharmacien"
-    }if(users3[0].role == "pharmacienP"){
+    }if(users3[users3.length-1].role == "pharmacienP"){
         role = "Pharmacien préparateur"
-    }if(users3[0].role == "admin"){
+    }if(users3[users3.length-1].role == "admin"){
         role = "Administrateur"
     }
-    res.render('Page', {nom: users3[0].name,
-                        role: role
+    res.render('Page', {nom: users3[users3.length-1].name,
+                        role: users3[users3.length-1].role
     })
 })
 
 app.get('/Page2', f.checkAuthenticated, async (req,res) => {
     const users3 = await User3.find()
-    if(users3[0].role == "medecin"){
+    if(users3[users3.length-1].role == "medecin"){
         role = "Médecin"
-    }if(users3[0].role == "pharmacien"){
+    }if(users3[users3.length-1].role == "pharmacien"){
         role = "Pharmacien"
-    }if(users3[0].role == "pharmacienP"){
+    }if(users3[users3.length-1].role == "pharmacienP"){
         role = "Pharmacien préparateur"
-    }if(users3[0].role == "admin"){
+    }if(users3[users3.length-1].role == "admin"){
         role = "Administrateur"
     }
-    res.render('Page2', {nom: users3[0].name,
-                        role: role
+    res.render('Page2', {nom: users3[users3.length-1].name,
+                        role: users3[users3.length-1].role
     })
 })
 
 app.get('/Regles_hygiene', f.checkAuthenticated, async (req,res) => {
     const users3 = await User3.find()
-    if(users3[0].role == "medecin"){
+    if(users3[users3.length-1].role == "medecin"){
         role = "Médecin"
-    }if(users3[0].role == "pharmacien"){
+    }if(users3[users3.length-1].role == "pharmacien"){
         role = "Pharmacien"
-    }if(users3[0].role == "pharmacienP"){
+    }if(users3[users3.length-1].role == "pharmacienP"){
         role = "Pharmacien préparateur"
-    }if(users3[0].role == "admin"){
+    }if(users3[users3.length-1].role == "admin"){
         role = "Administrateur"
     }
-    res.render('Regles_hygiene', {nom: users3[0].name,
+    res.render('Regles_hygiene', {nom: users3[users3.length-1].name,
                         role: role
     })
 })
@@ -340,7 +348,9 @@ app.post('/listeCt', async (req,res) => {
     }catch(e){
         console.log('chargement impossible')
     }
-}) 
+})
+
+ 
 
 /*app.get('/liste5', f.checkAuthenticated,f.checkNonMedecin,f.checkNonPharmacien, async (req,res) => {
     try{
@@ -352,11 +362,10 @@ app.post('/listeCt', async (req,res) => {
 }) 
 */
 //, f.checkAuthenticated,f.checkNonPharmacienP, f.checkNonMedecin, f.checkNonPharmacien
-app.get('/listeusers', f.checkAuthenticated,f.checkNonEmploye, f.checkNonMedecin,f.checkNonPharmacien, f.checkNonPharmacienP, async (req,res) => {
+app.get('/listeusers', f.checkAuthenticated,f.checkNonEmploye, async (req,res) => {
     try{
-    console.log(req.isAuthenticated())
-    const users = await User.find()
-    res.render('users/index', { users: users })
+		const users = await User.find()
+		res.render('users/index', { users: users })
     }catch(e){
         console.log('chargement impossible')
     }
@@ -384,7 +393,8 @@ app.post('/register', async (req,res) => {
             name: req.body.name,
             email: req.body.email,
             password: hashedPassword,
-            role: req.body.role
+            role: req.body.role,
+			active : 0,
         })
         user = await user.save()
         res.redirect('/')
@@ -394,11 +404,23 @@ app.post('/register', async (req,res) => {
     
 })
 
-app.post('/',passport.authenticate('local', {
+app.post('/l',passport.authenticate('local', {
     successRedirect: '/Page0',
     failureRedirect: '/',
     failureFlash: true
 }))
+app.post('/', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err) }
+    if (!user) {
+      return res.render('articles/login', { AlerteAuth: info.message })
+    }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.redirect('/Page0');
+    });
+  })(req, res, next);
+});
 
 app.delete('/logout', async (req,res) => {
     req.logOut()
@@ -438,14 +460,14 @@ app.put('/changementEMAIL', async (req,res) => {
     try{
         const users3 = await User3.find()
         console.log(users3.length)
-        let user = await User.findOne({email: users3[0].email})
+        let user = await User.findOne({email: users3[users3.length-1].email})
         console.log(req.body.email + '  ' +  typeof req.body.email) 
         if(req.body.email == req.body.email2){
             user.email = req.body.email
-            users3[0].email = req.body.email
+            users3[users3.length-1].email = req.body.email
         try{
             user = await user.save()
-            users3[0] = await users3[0].save()
+            users3[users3.length-1] = await users3[users3.length-1].save()
         res.render('changementEMAIL', {alerte: 'Email changé avec succés !'})
         }catch(e){
         res.render('changementEMAIL', {alerte: 'Impossible de changer votre email !'})
@@ -465,14 +487,14 @@ app.get('/changementNOM', f.checkAuthenticated, async (req,res)=>{
 app.put('/changementNOM', async (req,res) => {
     try{
         const users3 = await User3.find()
-        let user = await User.findOne({email: users3[0].email}) 
+        let user = await User.findOne({email: users3[users3.length-1].email}) 
         console.log(req.body.nom + typeof req.body.nom)
         if(req.body.nom == req.body.nom2){
         user.name = req.body.nom
-        users3[0].name = req.body.nom
+        users3[users3.length-1].name = req.body.nom
         try{
         user = await user.save()
-        users3[0] = await users3[0].save()
+        users3[users3.length-1] = await users3[users3.length-1].save()
         res.render('changementNOM', {alerte: 'Nom changé avec succés !'})
         }catch(e){
         res.render('changementNOM', {alerte: 'Impossible de changer votre nom !'})
@@ -492,7 +514,7 @@ app.get('/changement', f.checkAuthenticated, async (req,res)=>{
 app.put('/changement', async (req,res) => {
     try{
         const users3 = await User3.find()
-        let user = await User.findOne({email: users3[0].email}) 
+        let user = await User.findOne({email: users3[users3.length-1].email}) 
         if(await bcrypt.compare(req.body.password1, user.password)){
         if (req.body.password2 == req.body.password3){
         const hashedPassword = await bcrypt.hash(req.body.password2, 10)
@@ -538,7 +560,7 @@ io.on('connection', (socket) => {
         let id = uuid.v4(); // on crée un id aléatoire
         socket.id = id; // on l'attribue au socket
         //data.nickname (au lieu de user3(0) si on a envie d'entrer le pseudonyme manuellement)
-        socket.username = users3[0].name; // le nicknamle sera crée lors du socket.emit pr l'instant on l'attribue au username du socket
+        socket.username = users3[users3.length-1].name; // le nicknamle sera crée lors du socket.emit pr l'instant on l'attribue au username du socket
         users.push({id, username: socket.username, color: socket.color}); // on remplie le tableau users avec un objet user (id, usernale, color)
         updateUsernames(); //on émet le users
     })

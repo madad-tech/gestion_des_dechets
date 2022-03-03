@@ -330,12 +330,16 @@ h6 span{
 						<h6 class="mb-0 pb-3"><span>Admin </span><span>Employé</span></h6>
 			          	<input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
 			          	<label for="reg-log"></label>
+						<% if(typeof AlerteAuth != "undefined"){%>
+					  <%=AlerteAuth%>
+					  <%}%>
 						<div class="card-3d-wrap mx-auto">
 							<div class="card-3d-wrapper">
 								<div class="card-front">
 									<div class="center-wrap">
 										<div class="section text-center">
 											<h4 class="mb-4 pb-3">Admin Acces</h4>
+											
                       <form action="/" method = "POST" name="login">
 											<div class="form-group">
 												<input type="email" name="email" class="form-style" placeholder="Your Email Admin" id="email" aria-describedby="emailHelp">
@@ -355,6 +359,9 @@ h6 span{
 									<div class="center-wrap">
 										<div class="section text-center">
 											<h4 class="mb-4 pb-3">Employé Acces</h4>
+					 <% if(typeof AlerteAuth != "undefined"){%>
+					  <%=AlerteAuth%>
+					  <%}%>
                       <form action="/" method = "POST" name="login">
                         <div class="form-group">
                           <input type="email" name="email" class="form-style" placeholder="Your Email Employé" id="email" aria-describedby="emailHelp">

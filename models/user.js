@@ -16,7 +16,11 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         enum: ["employe", "admin"]
-       }
+       },
+	 active :{
+		type: Boolean,
+        required: true
+	 }
 })
 
 module.exports = mongoose.model('Utilisateur', userSchema)

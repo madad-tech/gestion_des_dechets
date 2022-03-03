@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const User = require('./../models/user.js')
+const f = require('./../UserRoles')
 
-router.get('/edit/:id', async (req,res) => {
+router.get('/edit/:id',f.checkNonEmploye, async (req,res) => {
     try{
     const user = await User.findById(req.params.id)
     res.render('users/edit', { user: user })
@@ -11,7 +12,19 @@ router.get('/edit/:id', async (req,res) => {
     }
 })
 
-router.delete('/:id', async (req,res) => {
+router.post('/activate/:id',f.checkNonEmploye, async (req,res) => {
+    try{
+		const user = await User.findById(req.params.id)
+		user.active = 1
+		user = await user.save()
+		res.redirect('/listeusers')  
+    }catch(e){
+		console.log(e)
+     res.redirect('/listeusers')   
+    }
+})
+
+router.delete('/:id',f.checkNonEmploye, async (req,res) => {
     try{
     await User.findByIdAndDelete(req.params.id)
     res.redirect('/listeusers')
@@ -20,7 +33,7 @@ router.delete('/:id', async (req,res) => {
     }
 })
 
-router.put('/:id', async (req,res) => {
+router.put('/:id',f.checkNonEmploye, async (req,res) => {
     let user = await User.findById(req.params.id)
         user.name = req.body.name
         user.email = req.body.email
