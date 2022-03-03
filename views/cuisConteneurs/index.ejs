@@ -7,9 +7,14 @@
      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" 
      crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="icon" href="http://sendpictures.free.fr/up/1608041829.ico" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+      
+ 
     <style> .bg {
       /* The image used */
       background-image: url("https://i.ibb.co/fGT2y3T/bleu-pastel-clair.jpg"); 
@@ -26,28 +31,29 @@
      </style>
     <title>Gestion des conteneurs </title>
 </head>
-<body style="background-color: #EBF2F8; padding-top: 100px; padding-bottom : 0px;">
+<body style="background-color: #cbc6ee; padding-bottom : 0px;">
+  <nav class="navbar navbar-expand-lg navbar-dark mb-4 " style="background-color: #7c6df0;">
+
+    <img width="95px" height="80px" src="https://i.ibb.co/HxYPqwp/logo.png" alt="logo"  style="position:relative;">
+
+    <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse ml-4" style="float: right" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/Page0">Page d'accueil<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">A propos de l'application Web</a>
+        </li>
+      </ul>
+      
+    </div>
+  </nav>  
   <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 fixed-top">
-
-      <img width="95px" height="80px" src="" alt="logo"  style="position:relative;">
-
-      <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
     
-      <div class="collapse navbar-collapse ml-4" style="float: right" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/Page2">Page d'accueil<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">A propos de l'application Web</a>
-          </li>
-        </ul>
-        
-      </div>
-    </nav>  
     
 
     <h1 class="mb-4 text-center ">Fiche des conteneurs</h1>
@@ -119,30 +125,59 @@
 
     <section>
   <div class="row">
-  <% cuisConteneurs.forEach( cuisConteneur => { %>
-      <div class="col-sm-4 text-center mx-auto shadow" style="background-color: #f7f7f7;">
-          <div class="card-body ">
-             <h4 class="card-title">Type de conteneur: <%= cuisConteneur.typeC %></h4> 
-             <div class="card-text mb-2">Nombre: <%= cuisConteneur.nombreC %></div>
-             <div class="card-text mb-2">Montant: <%= cuisConteneur.montantC%></div>
-             <div class="card-text mb-2">Caution: <%= cuisConteneur.cautionC %></div>
-             <div class="card-text mb-2">Poids : <%= cuisConteneur.poidsC %></div>
-             <div class="card-text mb-2">Commentaire : <%= cuisConteneur.commentaireC %></div>
-             <div class="card-subtitle text-muted mb-2">Date création dossier: <%= cuisConteneur.dateC.toLocaleDateString() %></div>
-             <a href="/cuisConteneurs/<%= cuisConteneur.id %>" class="btn btn-outline-primary">Plus d'infos<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle ml-2" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-              <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
-              <circle cx="8" cy="4.5" r="1"/>
-            </svg></a>
-            <form action="/cuisConteneurs/<%= cuisConteneur.id %>?_method=DELETE" method="POST" class="d-inline" >
-               <button type="submit" class="btn btn-danger">Supprimer<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash ml-2" viewBox="0 0 16 16">
-                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-              </svg></button>
-            </form>
-          </div>
+    <div class="table-responsive">
+      <table class="table table-hover">
+          <thead>
+              <tr>
+                 <th class="text-center">Date création du dossier</th>
+                  <th class="text-center">Type de conteneur</th>
+                  <th>Nombre</th>
+                  <th>Montant</th>
+                  <th>Caution</th>
+                  <th class="text-right">Poids</th>
+                  <th class="text-right">Commentaire</th>
+                  <th></th>
+              </tr>
+          </thead>
+          <tbody>
+            <% cuisConteneurs.forEach( cuisConteneur => { %>
+              <tr>
+                <td class="text-center"><%= cuisConteneur.dateC.toLocaleDateString() %></td>
+                  <td class="text-center"><%= cuisConteneur.typeC %></td>
+                  <td><%= cuisConteneur.nombreC %></td>
+                  <td> <%= cuisConteneur.montantC%></td>
+                  <td><%= cuisConteneur.cautionC %></td>
+                  <td class="text-right"> <%= cuisConteneur.poidsC %></td>
+                  <td> <%= cuisConteneur.commentaireC %></td>
+                 
+                  <td class="td-actions text-right">
+                    <form method="get" action="/cuisConteneurs/<%= cuisConteneur.id %>" class="d-inline" >
+                      <button type="submit" rel="tooltip" class="btn btn-info btn-just-icon btn-sm" data-original-title="" title="">
+                          <i class="material-icons">person</i>
+                      </button>
+                    </form>
+                    <form method="get" action="/cuisConteneurs/edit/<%= cuisConteneur.id %>" class="d-inline">
+                      <button type="submit" rel="tooltip" class="btn btn-success btn-just-icon btn-sm" data-original-title="" title="">
+                          <i class="material-icons">edit</i>
+                      </button>
+                    </form>
+                      <form action="/cuisConteneurs/<%= cuisConteneur.id %>?_method=DELETE" method="POST" class="d-inline" >
+                      <button type="submit" rel="tooltip" class="btn btn-danger btn-just-icon btn-sm" data-original-title="" title="">
+                          <i class="material-icons">close</i>
+                      </button>
+                    </form>
+                  </td>
+              </tr>
+              <% }) %>
+          </tbody>
+      </table>
       </div>
-  <% }) %>
+
+    
+
+   
+    
+  
 </div>
 </section>
    
