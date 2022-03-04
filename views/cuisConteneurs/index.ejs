@@ -27,29 +27,47 @@
       background-repeat: no-repeat;
       background-size: cover;
 
-     }  
+     } 
+
+     .btn-outline-sm {
+	display: inline-block;
+	padding: 0.875rem 1.5rem 0.875rem 1.5rem;
+	border: 0.125rem solid #ffffff;
+	border-radius: 2rem;
+	background-color: transparent;
+	color: #ffffff;
+	font: 700 0.875rem/0 "Open Sans", sans-serif;
+	text-decoration: none;
+	transition: all 0.2s;
+}
+.btn-outline-sm:hover {
+background-color: #5f4dee;
+color: #fff;
+text-decoration: none;
+} 
      </style>
     <title>Gestion des conteneurs </title>
 </head>
 <body style="background-color: #cbc6ee; padding-bottom : 0px;">
-  <nav class="navbar navbar-expand-lg navbar-dark mb-4 " style="background-color: #7c6df0;">
-
-    <img width="95px" height="80px" src="https://i.ibb.co/HxYPqwp/logo.png" alt="logo"  style="position:relative;">
-
-    <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-lg navbar-dark  mb-4" style="background-color: #7c6df0;">
+    <a class="navbar-brand" href="/Page0">Aceuil</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
   
     <div class="collapse navbar-collapse ml-4" style="float: right" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/Page0">Page d'accueil<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">A propos de l'application Web</a>
-        </li>
+      <ul class="navbar-nav mr-auto">
+        
+        
+        
+        
+        
       </ul>
-      
+      <span class="nav-item">
+        <form action="/logout?_method=DELETE" method="POST">
+        <button type="submit" class="btn-outline-sm">LOGOUT</button>
+        </form>
+      </span>
     </div>
   </nav>  
   <div class="container">
