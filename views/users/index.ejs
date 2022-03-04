@@ -27,50 +27,53 @@
       background-repeat: no-repeat;
       background-size: cover;
 
-     }  
+     } 
+     .btn-outline-sm {
+	display: inline-block;
+	padding: 0.875rem 1.5rem 0.875rem 1.5rem;
+	border: 0.125rem solid #ffffff;
+	border-radius: 2rem;
+	background-color: transparent;
+	color: #ffffff;
+	font: 700 0.875rem/0 "Open Sans", sans-serif;
+	text-decoration: none;
+	transition: all 0.2s;
+}
+.btn-outline-sm:hover {
+background-color: #5f4dee;
+color: #fff;
+text-decoration: none;
+} 
      </style>
      <title>Gestion des comptes</title>
 </head>
 <body style="background-color: #cbc6ee; padding-bottom : 0px;">
-  <nav class="navbar navbar-expand-lg navbar-dark mb-4 " style="background-color: #7c6df0;">
-
-    <img width="95px" height="80px" src="https://i.ibb.co/HxYPqwp/logo.png" alt="logo"  style="position:relative;">
-
-    <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-lg navbar-dark  mb-4" style="background-color: #7c6df0;">
+    <a class="navbar-brand" href="/Page0">Aceuil</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
   
     <div class="collapse navbar-collapse ml-4" style="float: right" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="/Page0">Page d'accueil<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/listeCt/tout">Gestion des conteneurs<span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">A propos de l'application Web</a>
-        </li>
+        
+        
+        
+        
       </ul>
-      
+      <span class="nav-item">
+        <form action="/logout?_method=DELETE" method="POST">
+        <button type="submit" class="btn-outline-sm">LOGOUT</button>
+        </form>
+      </span>
     </div>
   </nav>  
   <div class="container">
       <h1 class="mb-4 text-center">Utilisateurs</h1>
-    <div class="row mb-4">
-      <div class="col">
-        <form action="/liste3" method = "POST"  class="form-inline  mb+2">
-          <span class="input-group-text mr-2" id="basic-addon1">Recherche</span>
-          <input type="text" class="mr-2 form-control form-control-sm" id = "request" name = "request" placeholder="Entrez un nom">
-          <label class="form-check-label mr-2 text-dark" for="request2">
-            Tout
-          </label>
-          <input class="form-check-input mr-2" type="radio" name="request2" id="request2" value="tout">
-          <button href="/liste3" class="btn btn-outline-success my-2 my-sm-0" type="submit">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search mr-2" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-              <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-            </svg>      Chercher</button>
-      
-        </form>
-      </div>
+
     </div>
     <!--<% users.forEach( user => { %>  
         <div class="card mt-2 mb-4 w-50 text-center mx-auto shadow">
@@ -134,16 +137,6 @@
       </table>
       </div>
   </div>
-  <nav aria-label="breadcrumb " style ="bottom : 1000px" >
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/liste2/tout">Espace Prescription</a></li>
-      <li class="breadcrumb-item active" aria-current="page"><a href="/liste3/tout">Dossiers patient</a></li>
-      <li class="breadcrumb-item active" aria-current="page"><a href="/liste/tout">Stock</a></li>
-      <li class="breadcrumb-item active" aria-current="page"><a href="/liste4/tout">Livret thérapeutique</a></li>
-      <li class="breadcrumb-item active" aria-current="page"><a href="/liste6/tout">Fournisseurs</a></li>
-      <li class="breadcrumb-item active" aria-current="page"><a href="/liste7/tout">Gestion de retours</a></li>
-      <li class="breadcrumb-item active" aria-current="page"><a href="/liste5/tout">Commandes</a></li>
-    </ol>
-  </nav>
+  
 </body>
 </html>
